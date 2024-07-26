@@ -71,27 +71,37 @@ d3.csv('https://raw.githubusercontent.com/mwaskom/seaborn-data/master/iris.csv')
           else return "blue";
         });
   
-      // Add annotation
-      const annotations = [{
-        note: { label: scene.annotation },
-        x: 100, y: 100,
-        dx: 50, dy: -50
-      }];
+      // Check if d3.annotation is available
+      if (d3.annotation) {
+        // Add annotation
+        const annotations = [{
+          note: { label: scene.annotation },
+          x: 100, y: 100,
+          dx: 50, dy: -50
+        }];
   
-      const makeAnnotations = d3.annotation()
-        .annotations(annotations)
-        .type(d3.annotationLabel)
-        .textWrap(200)
-        .accessors({
-          x: d => d.x,
-          y: d => d.y
-        })
-        .accessorsInverse({
-          x: d => d.x,
-          y: d => d.y
-        });
+        const makeAnnotations = d3.annotation()
+          .annotations(annotations)
+          .type(d3.annotationLabel)
+          .textWrap(200)
+          .accessors({
+            x: d => d.x,
+            y: d => d.y
+          })
+          .accessorsInverse({
+            x: d => d.x,
+            y: d => d.y
+          });
   
-      svg.append("g").call(makeAnnotations);
+        svg.append("g").call(makeAnnotations);
+      } else {
+        console.log("d3.annotation is not available");
+        svg.append("text")
+          .attr("x", 50)
+          .attr("y", 50)
+          .text(scene.annotation)
+          .attr("class", "annotation");
+      }
     }
   
     // Function to handle scene change
