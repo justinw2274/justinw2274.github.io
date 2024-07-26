@@ -28,6 +28,7 @@ d3.csv('https://raw.githubusercontent.com/mwaskom/seaborn-data/master/iris.csv')
     
     // Function to update the scene
     function updateScene() {
+      console.log(`Updating to scene ${currentScene + 1}`);
       const scene = scenes[currentScene];
       
       // Clear existing content
@@ -96,6 +97,7 @@ d3.csv('https://raw.githubusercontent.com/mwaskom/seaborn-data/master/iris.csv')
     // Function to handle scene change
     function changeScene(step) {
       currentScene = (currentScene + step + scenes.length) % scenes.length;
+      console.log(`Changing to scene ${currentScene + 1}`);
       updateScene();
     }
   
@@ -103,7 +105,14 @@ d3.csv('https://raw.githubusercontent.com/mwaskom/seaborn-data/master/iris.csv')
     updateScene();
   
     // Add event listeners for navigation
-    d3.select("#next").on("click", () => changeScene(1));
-    d3.select("#prev").on("click", () => changeScene(-1));
+    d3.select("#next").on("click", () => {
+      console.log("Next button clicked");
+      changeScene(1);
+    });
+    d3.select("#prev").on("click", () => {
+      console.log("Previous button clicked");
+      changeScene(-1);
+    });
   });
+  
   
