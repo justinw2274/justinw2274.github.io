@@ -1,8 +1,10 @@
 // Load the dataset
 d3.csv('https://raw.githubusercontent.com/fivethirtyeight/data/master/nba-elo/nbaallelo.csv').then(data => {
-
     // Filter data for a specific year (e.g., 2017)
     data = data.filter(d => +d.year_id === 2017);
+
+    // Log the data to check its structure
+    console.log("Filtered Data:", data);
 
     // Parameters
     let currentScene = 0;
@@ -123,6 +125,8 @@ d3.csv('https://raw.githubusercontent.com/fivethirtyeight/data/master/nba-elo/nb
     // Add event listeners for navigation
     d3.select("#next").on("click", () => changeScene(1));
     d3.select("#prev").on("click", () => changeScene(-1));
+}).catch(error => {
+    console.error("Error loading the CSV file:", error);
 });
   
   
