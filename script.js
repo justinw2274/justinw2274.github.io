@@ -1,7 +1,8 @@
 // Load the dataset
-d3.csv('https://raw.githubusercontent.com/fivethirtyeight/data/master/nba-elo/nbaallelo.csv').then(data => {
+d3.csv('https://raw.githubusercontent.com/datasets/population/master/data/population.csv').then(data => {
+
     // Filter data for a specific year (e.g., 2017)
-    data = data.filter(d => +d.year_id === 2017);
+    data = data.filter(d => d.Year === '2017');
 
     // Log the data to check its structure
     console.log("Filtered Data:", data);
@@ -12,22 +13,10 @@ d3.csv('https://raw.githubusercontent.com/fivethirtyeight/data/master/nba-elo/nb
     // Define the scenes
     const scenes = [
         { 
-            title: "Scene 1: Points vs Assists",
-            x: "pts", 
-            y: "ast", 
-            annotation: "This scene shows the relationship between player points and assists for the 2017 season."
-        },
-        { 
-            title: "Scene 2: Points vs Rebounds",
-            x: "pts", 
-            y: "trb", 
-            annotation: "This scene shows the relationship between player points and total rebounds for the 2017 season."
-        },
-        { 
-            title: "Scene 3: Player Efficiency Rating",
-            x: "player", 
-            y: "per", 
-            annotation: "This scene shows the Player Efficiency Rating (PER) for players in the 2017 season.",
+            title: "Scene 1: Population vs Country",
+            x: "Country Name", 
+            y: "Value", 
+            annotation: "This scene shows the population of various countries in 2017.",
             isBarChart: true
         }
     ];
@@ -41,23 +30,23 @@ d3.csv('https://raw.githubusercontent.com/fivethirtyeight/data/master/nba-elo/nb
 
         // Create SVG
         const svg = d3.select("#visualization").append("svg")
-            .attr("width", 600)
-            .attr("height", 400);
+            .attr("width", 800)
+            .attr("height", 600);
 
         if (scene.isBarChart) {
             // Create scales for bar chart
             const xScale = d3.scaleBand()
                 .domain(data.map(d => d[scene.x]))
-                .range([40, 560])
+                .range([40, 760])
                 .padding(0.1);
 
             const yScale = d3.scaleLinear()
                 .domain([0, d3.max(data, d => +d[scene.y])])
-                .range([360, 40]);
+                .range([560, 40]);
 
             // Create axes
             svg.append("g")
-                .attr("transform", "translate(0,360)")
+                .attr("transform", "translate(0,560)")
                 .call(d3.axisBottom(xScale).tickFormat((d, i) => i % 5 === 0 ? d : ""));
 
             svg.append("g")
@@ -72,22 +61,22 @@ d3.csv('https://raw.githubusercontent.com/fivethirtyeight/data/master/nba-elo/nb
                 .attr("x", d => xScale(d[scene.x]))
                 .attr("y", d => yScale(+d[scene.y]))
                 .attr("width", xScale.bandwidth())
-                .attr("height", d => 360 - yScale(+d[scene.y]))
+                .attr("height", d => 560 - yScale(+d[scene.y]))
                 .attr("fill", "steelblue");
 
         } else {
             // Create scales for scatter plot
             const xScale = d3.scaleLinear()
                 .domain([0, d3.max(data, d => +d[scene.x])])
-                .range([40, 560]);
+                .range([40, 760]);
 
             const yScale = d3.scaleLinear()
                 .domain([0, d3.max(data, d => +d[scene.y])])
-                .range([360, 40]);
+                .range([560, 40]);
 
             // Create axes
             svg.append("g")
-                .attr("transform", "translate(0,360)")
+                .attr("transform", "translate(0,560)")
                 .call(d3.axisBottom(xScale));
 
             svg.append("g")
@@ -128,6 +117,7 @@ d3.csv('https://raw.githubusercontent.com/fivethirtyeight/data/master/nba-elo/nb
 }).catch(error => {
     console.error("Error loading the CSV file:", error);
 });
+
   
   
   
