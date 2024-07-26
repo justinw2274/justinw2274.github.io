@@ -1,8 +1,8 @@
 // Load the dataset
-d3.csv('https://raw.githubusercontent.com/datasets/basketball/master/data/games.csv').then(data => {
-  
+d3.csv('https://raw.githubusercontent.com/fivethirtyeight/data/master/nba-elo/nbaallelo.csv').then(data => {
+
     // Filter data for a specific year (e.g., 2017)
-    data = data.filter(d => +d.Date.split('-')[0] === 2017);
+    data = data.filter(d => +d.year_id === 2017);
   
     // Parameters
     let currentScene = 0;
@@ -11,28 +11,27 @@ d3.csv('https://raw.githubusercontent.com/datasets/basketball/master/data/games.
     const scenes = [
       { 
         title: "Scene 1: Points vs Assists",
-        x: "PTS", 
-        y: "AST", 
+        x: "pts", 
+        y: "ast", 
         annotation: "This scene shows the relationship between player points and assists for the 2017 season."
       },
       { 
         title: "Scene 2: Points vs Rebounds",
-        x: "PTS", 
-        y: "TRB", 
+        x: "pts", 
+        y: "trb", 
         annotation: "This scene shows the relationship between player points and total rebounds for the 2017 season."
       },
       { 
         title: "Scene 3: Player Efficiency Rating",
-        x: "Player", 
-        y: "PER", 
+        x: "player", 
+        y: "per", 
         annotation: "This scene shows the Player Efficiency Rating (PER) for players in the 2017 season.",
         isBarChart: true
       }
     ];
-    
+  
     // Function to update the scene
     function updateScene() {
-      console.log(`Updating to scene ${currentScene + 1}`);
       const scene = scenes[currentScene];
   
       // Clear existing content
@@ -49,7 +48,7 @@ d3.csv('https://raw.githubusercontent.com/datasets/basketball/master/data/games.
           .domain(data.map(d => d[scene.x]))
           .range([40, 560])
           .padding(0.1);
-        
+  
         const yScale = d3.scaleLinear()
           .domain([0, d3.max(data, d => +d[scene.y])])
           .range([360, 40]);
@@ -58,7 +57,7 @@ d3.csv('https://raw.githubusercontent.com/datasets/basketball/master/data/games.
         svg.append("g")
           .attr("transform", "translate(0,360)")
           .call(d3.axisBottom(xScale).tickFormat((d, i) => i % 5 === 0 ? d : ""));
-        
+  
         svg.append("g")
           .attr("transform", "translate(40,0)")
           .call(d3.axisLeft(yScale));
@@ -79,7 +78,7 @@ d3.csv('https://raw.githubusercontent.com/datasets/basketball/master/data/games.
         const xScale = d3.scaleLinear()
           .domain([0, d3.max(data, d => +d[scene.x])])
           .range([40, 560]);
-        
+  
         const yScale = d3.scaleLinear()
           .domain([0, d3.max(data, d => +d[scene.y])])
           .range([360, 40]);
@@ -88,7 +87,7 @@ d3.csv('https://raw.githubusercontent.com/datasets/basketball/master/data/games.
         svg.append("g")
           .attr("transform", "translate(0,360)")
           .call(d3.axisBottom(xScale));
-        
+  
         svg.append("g")
           .attr("transform", "translate(40,0)")
           .call(d3.axisLeft(yScale));
@@ -128,7 +127,6 @@ d3.csv('https://raw.githubusercontent.com/datasets/basketball/master/data/games.
   
         svg.append("g").call(makeAnnotations);
       } else {
-        console.log("d3.annotation is not available");
         svg.append("text")
           .attr("x", 50)
           .attr("y", 50)
@@ -140,7 +138,6 @@ d3.csv('https://raw.githubusercontent.com/datasets/basketball/master/data/games.
     // Function to handle scene change
     function changeScene(step) {
       currentScene = (currentScene + step + scenes.length) % scenes.length;
-      console.log(`Changing to scene ${currentScene + 1}`);
       updateScene();
     }
   
@@ -148,15 +145,10 @@ d3.csv('https://raw.githubusercontent.com/datasets/basketball/master/data/games.
     updateScene();
   
     // Add event listeners for navigation
-    d3.select("#next").on("click", () => {
-      console.log("Next button clicked");
-      changeScene(1);
-    });
-    d3.select("#prev").on("click", () => {
-      console.log("Previous button clicked");
-      changeScene(-1);
-    });
+    d3.select("#next").on("click", () => changeScene(1));
+    d3.select("#prev").on("click", () => changeScene(-1));
   });
+  
   
   
   
