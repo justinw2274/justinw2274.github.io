@@ -1,8 +1,8 @@
 // Load the dataset
-d3.csv('https://raw.githubusercontent.com/erikgregorywebb/nba-player-stats/master/Seasons_Stats.csv').then(data => {
+d3.csv('https://raw.githubusercontent.com/datasets/basketball/master/data/games.csv').then(data => {
   
     // Filter data for a specific year (e.g., 2017)
-    data = data.filter(d => +d.Year === 2017);
+    data = data.filter(d => +d.Date.split('-')[0] === 2017);
   
     // Parameters
     let currentScene = 0;
@@ -157,6 +157,7 @@ d3.csv('https://raw.githubusercontent.com/erikgregorywebb/nba-player-stats/maste
       changeScene(-1);
     });
   });
+  
   
   
   
