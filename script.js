@@ -1,5 +1,5 @@
 // Load the dataset
-d3.csv('all_seasons.csv').then(data => {
+d3.csv('https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/24908120/11f577f1-6ec6-42e8-9106-527681ec9873/all_seasons.csv').then(data => {
     // Process data if needed
     data.forEach(d => {
         d.age = +d.age;
@@ -70,8 +70,8 @@ d3.csv('all_seasons.csv').then(data => {
                 note: { label: "Age vs Points" },
                 x: x(25),
                 y: y(20),
-                dy: -30,
-                dx: 30
+                dy: -50, // Move annotation higher
+                dx: 50
             }
         ];
 
@@ -83,6 +83,7 @@ d3.csv('all_seasons.csv').then(data => {
             .call(makeAnnotations);
 
         // Add transition button
+        d3.select("#controls").html(""); // Clear previous buttons
         d3.select("#controls").append("button")
             .text("Next")
             .on("click", () => {
@@ -147,8 +148,8 @@ d3.csv('all_seasons.csv').then(data => {
                 note: { label: "Height vs Rebounds" },
                 x: x(200),
                 y: y(8),
-                dy: -30,
-                dx: 30
+                dy: -50, // Move annotation higher
+                dx: 50
             }
         ];
 
@@ -160,6 +161,7 @@ d3.csv('all_seasons.csv').then(data => {
             .call(makeAnnotations);
 
         // Add transition button
+        d3.select("#controls").html(""); // Clear previous buttons
         d3.select("#controls").append("button")
             .text("Next")
             .on("click", () => {
@@ -224,8 +226,8 @@ d3.csv('all_seasons.csv').then(data => {
                 note: { label: "Weight vs Assists" },
                 x: x(100),
                 y: y(5),
-                dy: -30,
-                dx: 30
+                dy: -50, // Move annotation higher
+                dx: 50
             }
         ];
 
@@ -237,6 +239,7 @@ d3.csv('all_seasons.csv').then(data => {
             .call(makeAnnotations);
 
         // Add transition button
+        d3.select("#controls").html(""); // Clear previous buttons
         d3.select("#controls").append("button")
             .text("Explore")
             .on("click", () => {
