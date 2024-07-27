@@ -2,17 +2,36 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Starbucks Locations Visualization</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Starbucks Store Locations Visualization</title>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src="https://d3-annotation.susielu.com/d3-annotation.min.js"></script>
+    <style>
+        .annotation {
+            font-size: 12px;
+            fill: #555;
+        }
+        .bar {
+            fill: steelblue;
+        }
+        .point {
+            fill: steelblue;
+        }
+        #controls {
+            margin: 20px;
+        }
+        #controls button {
+            margin: 5px;
+            padding: 10px;
+        }
+    </style>
 </head>
 <body>
-    <div id="visualization">
-        <svg width="960" height="600"></svg>
+    <h1>Starbucks Store Locations Visualization</h1>
+    <div id="visualization"></div>
+    <div id="controls">
+        <button id="prev">Previous</button>
+        <button id="next">Next</button>
     </div>
-    <script src="assets/d3.v7.min.js"></script>
-    <script src="assets/d3-annotation.min.js"></script>
-    <script src="assets/topojson.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
