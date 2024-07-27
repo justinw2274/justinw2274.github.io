@@ -18,7 +18,7 @@ d3.csv('all_seasons.csv').then(data => {
         d3.select("#controls").html("");
 
         const margin = {top: 40, right: 40, bottom: 60, left: 60};
-        const width = 1100 - margin.left - margin.right; // Increased width
+        const width = 1200 - margin.left - margin.right; // Increased width
         const height = 480 - margin.top - margin.bottom;
 
         const svg = d3.select("#chart-container").append("svg")
@@ -35,7 +35,7 @@ d3.csv('all_seasons.csv').then(data => {
             xLabel = "Age";
             yLabel = "Points per Game";
             annotation = "Players in their mid-20s tend to score the most points";
-            annotationTextPosition = {x: width - 250, y: 50}; // Adjusted position of the annotation text
+            annotationTextPosition = {x: width - 300, y: 50}; // Adjusted position of the annotation text
             annotationLineEnd = {x: 27, y: 32}; // Point where the line should end
         } else if (sceneNumber === 2) {
             x = d3.scaleLinear().domain(d3.extent(data, d => d.player_height)).range([0, width]);
@@ -43,7 +43,7 @@ d3.csv('all_seasons.csv').then(data => {
             xLabel = "Height (cm)";
             yLabel = "Points per Game";
             annotation = "Height doesn't strongly correlate with points";
-            annotationTextPosition = {x: width - 250, y: 50}; // Adjust as needed
+            annotationTextPosition = {x: width - 300, y: 50}; // Adjust as needed
             annotationLineEnd = {x: 200, y: 25}; // Adjust as needed
         } else if (sceneNumber === 3) {
             x = d3.scaleLinear().domain(d3.extent(data, d => d.player_weight)).range([0, width]);
@@ -51,7 +51,7 @@ d3.csv('all_seasons.csv').then(data => {
             xLabel = "Weight (kg)";
             yLabel = "Points per Game";
             annotation = "Weight doesn't strongly correlate with points";
-            annotationTextPosition = {x: width - 250, y: 50}; // Adjust as needed
+            annotationTextPosition = {x: width - 300, y: 50}; // Adjust as needed
             annotationLineEnd = {x: 100, y: 25}; // Adjust as needed
         }
 
@@ -120,7 +120,7 @@ d3.csv('all_seasons.csv').then(data => {
         d3.select("#controls").html("");
 
         const margin = {top: 40, right: 40, bottom: 60, left: 60};
-        const width = 1000 - margin.left - margin.right; // Increased width
+        const width = 1200 - margin.left - margin.right; // Increased width
         const height = 480 - margin.top - margin.bottom;
 
         const svg = d3.select("#chart-container").append("svg")
