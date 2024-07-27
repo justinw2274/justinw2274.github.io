@@ -2,9 +2,10 @@
 d3.csv('all_seasons.csv').then(data => {
     // Convert data types
     data.forEach(d => {
-      d.Age = +d.Age;
-      d.G = +d.G;
-      d.PTS = +d.PTS;
+      d.age = +d.age;
+      d.gp = +d.gp;
+      d.pts = +d.pts;
+      d.player_height = +d.player_height;
     });
   
     // Log data to ensure it's being loaded correctly
@@ -17,15 +18,21 @@ d3.csv('all_seasons.csv').then(data => {
     const scenes = [
       { 
         title: "Scene 1: Player Age vs Points",
-        x: "Age", 
-        y: "PTS", 
+        x: "age", 
+        y: "pts", 
         annotation: "This scene shows the relationship between player age and average points per game."
       },
       { 
         title: "Scene 2: Games Played vs Points",
-        x: "G", 
-        y: "PTS", 
+        x: "gp", 
+        y: "pts", 
         annotation: "This scene shows the relationship between the number of games played and average points per game."
+      },
+      { 
+        title: "Scene 3: Player Height vs Points",
+        x: "player_height", 
+        y: "pts", 
+        annotation: "This scene shows the relationship between player height and average points per game."
       }
     ];
   
