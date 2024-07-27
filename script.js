@@ -19,14 +19,14 @@ d3.csv('all_seasons.csv').then(data => {
     // Function to create a scene
     function createScene(data, sceneNumber) {
         // Clear previous content
-        d3.select("#chart").html("");
+        d3.select("#chart-container").html("");
         d3.select("#controls").html("");
 
         const margin = {top: 40, right: 40, bottom: 60, left: 60};
         const width = 760 - margin.left - margin.right;
         const height = 480 - margin.top - margin.bottom;
 
-        const svg = d3.select("#chart").append("svg")
+        const svg = d3.select("#chart-container").append("svg")
             .attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom)
             .append("g")
@@ -59,8 +59,9 @@ d3.csv('all_seasons.csv').then(data => {
             .enter().append("circle")
             .attr("cx", d => x(d[xLabel === "Age" ? "age" : xLabel === "Height (cm)" ? "player_height" : "player_weight"]))
             .attr("cy", d => y(d[yLabel === "Points" ? "pts" : yLabel === "Rebounds" ? "reb" : "ast"]))
-            .attr("r", 5)
-            .style("fill", sceneNumber === 1 ? "steelblue" : sceneNumber === 2 ? "orange" : "green");
+            .attr("r", 3)
+            .style("fill", sceneNumber === 1 ? "steelblue" : sceneNumber === 2 ? "orange" : "green")
+            .style("opacity", 0.5);
 
         // Add X axis
         svg.append("g")
@@ -94,24 +95,6 @@ d3.csv('all_seasons.csv').then(data => {
             .style("font-size", "16px")
             .style("font-weight", "bold")
             .text(title);
-
-        // Add annotations
-        const annotations = [
-            {
-                note: { label: title },
-                x: x(d3.mean(data, d => d[xLabel === "Age" ? "age" : xLabel === "Height (cm)" ? "player_height" : "player_weight"])),
-                y: y(d3.mean(data, d => d[yLabel === "Points" ? "pts" : yLabel === "Rebounds" ? "reb" : "ast"])),
-                dy: -100,
-                dx: 100
-            }
-        ];
-
-        const makeAnnotations = d3.annotation()
-            .annotations(annotations);
-
-        svg.append("g")
-            .attr("class", "annotation-group")
-            .call(makeAnnotations);
 
         // Add transition button
         if (sceneNumber < 3) {
