@@ -8,9 +8,21 @@ d3.csv('all_seasons.csv').then(data => {
     });
 
     const annotations = [
-        "Players in their mid-20s tend to score the most points",
-        "Height doesn't strongly correlate with points",
-        "Weight doesn't strongly correlate with points"
+        {
+            text: "Players in their mid-20s tend to score the most points",
+            x: 26, // Approximate x-coordinate of the point of interest
+            y: 30  // Approximate y-coordinate of the point of interest
+        },
+        {
+            text: "Height doesn't strongly correlate with points",
+            x: 210, // Approximate x-coordinate of the point of interest
+            y: 20   // Approximate y-coordinate of the point of interest
+        },
+        {
+            text: "Weight doesn't strongly correlate with points",
+            x: 100, // Approximate x-coordinate of the point of interest
+            y: 20   // Approximate y-coordinate of the point of interest
+        }
     ];
 
     let currentScene = 1;
@@ -19,7 +31,7 @@ d3.csv('all_seasons.csv').then(data => {
     function createScene(data, sceneNumber, annotation) {
         d3.select("#chart-container").html("");
         d3.select("#controls").html("");
-        d3.select("#annotation").text(annotation);  // Set the annotation text
+        d3.select("#annotation").text(annotation.text);  // Set the annotation text
 
         const margin = { top: 40, right: 40, bottom: 60, left: 60 };
         const width = 760 - margin.left - margin.right;
@@ -78,6 +90,23 @@ d3.csv('all_seasons.csv').then(data => {
             .attr("y", -margin.left + 20)
             .attr("x", -height / 2)
             .text(yLabel);
+
+        svg.append("text")
+            .attr("x", width / 2)
+            .attr("y", -20)
+            .attr("text-anchor", "middle")
+            .style("font-style", "italic")
+            .text(annotation.text);
+
+        // Add an annotation line
+        svg.append("line")
+            .attr("x1", x(annotation.x))
+            .attr("y1", y(annotation.y))
+            .attr("x2", width / 2)
+            .attr("y2", -20)
+            .attr("stroke", "black")
+            .attr("stroke-width", 1)
+            .attr("stroke-dasharray", "4 2");
 
         if (sceneNumber < 3) {
             d3.select("#controls").append("button")
