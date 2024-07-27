@@ -1,23 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Basketball Data Visualization</title>
-  <script src="https://d3js.org/d3.v6.min.js"></script>
-  <script src="https://d3-annotation.susielu.com/annotations.min.js"></script>
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <title>Iris Data Visualization</title>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src="https://d3-annotation.susielu.com/assets/d3-annotation.min.js"></script>
+    <style>
+        /* Add some basic styling */
+        .chart-container { width: 100%; height: 500px; }
+        .annotation { font-size: 12px; }
+    </style>
 </head>
 <body>
-  <div id="content">
-    <h1>Basketball Data Visualization</h1>
-    <div id="visualization"></div>
-    <div id="controls">
-      <button id="prev">Previous</button>
-      <button id="next">Next</button>
-      <button id="interactive">Interactive</button>
-    </div>
-  </div>
-  <script src="script.js"></script>
+    <div id="chart1" class="chart-container"></div>
+    <div id="chart2" class="chart-container"></div>
+    <div id="chart3" class="chart-container"></div>
+    <div id="controls"></div>
+    <script src="script.js"></script>
 </body>
 </html>
