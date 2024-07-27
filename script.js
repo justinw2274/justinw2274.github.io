@@ -160,7 +160,3 @@ d3.csv('https://raw.githubusercontent.com/fivethirtyeight/data/master/nba-elo/nb
     d3.select("#prev").on("click", () => changeScene(-1));
   });
   
-  
-  
-  
-  
