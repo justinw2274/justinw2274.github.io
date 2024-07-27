@@ -3,27 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Basketball Player Stats Visualization</title>
+  <title>Basketball Data Visualization</title>
   <script src="https://d3js.org/d3.v6.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-annotation/2.5.1/d3-annotation.min.js"></script>
-  <style>
-    .annotation {
-      font-size: 14px;
-      font-family: sans-serif;
-    }
-    .bar {
-      fill: steelblue;
-    }
-    .point {
-      fill: steelblue;
-    }
-  </style>
+  <script src="https://d3-annotation.susielu.com/annotations.min.js"></script>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <h1>Basketball Player Stats Visualization</h1>
-  <div id="visualization"></div>
-  <button id="prev">Previous</button>
-  <button id="next">Next</button>
+  <div id="content">
+    <h1>Basketball Data Visualization</h1>
+    <div id="visualization"></div>
+    <div id="controls">
+      <button id="prev">Previous</button>
+      <button id="next">Next</button>
+      <button id="interactive">Interactive</button>
+    </div>
+  </div>
   <script src="script.js"></script>
 </body>
 </html>
