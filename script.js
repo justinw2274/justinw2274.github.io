@@ -4,6 +4,9 @@ d3.csv('https://raw.githubusercontent.com/fivethirtyeight/data/master/nba-elo/nb
     // Filter data for a specific year (e.g., 2017)
     data = data.filter(d => +d.year_id === 2017);
   
+    // Log data to ensure it's being loaded correctly
+    console.log("Filtered Data:", data);
+  
     // Parameters
     let currentScene = 0;
   
@@ -53,6 +56,10 @@ d3.csv('https://raw.githubusercontent.com/fivethirtyeight/data/master/nba-elo/nb
           .domain([0, d3.max(data, d => +d[scene.y])])
           .range([360, 40]);
   
+        // Log scales to ensure they are created correctly
+        console.log("xScale domain:", xScale.domain());
+        console.log("yScale domain:", yScale.domain());
+  
         // Create axes
         svg.append("g")
           .attr("transform", "translate(0,360)")
@@ -82,6 +89,10 @@ d3.csv('https://raw.githubusercontent.com/fivethirtyeight/data/master/nba-elo/nb
         const yScale = d3.scaleLinear()
           .domain([0, d3.max(data, d => +d[scene.y])])
           .range([360, 40]);
+  
+        // Log scales to ensure they are created correctly
+        console.log("xScale domain:", xScale.domain());
+        console.log("yScale domain:", yScale.domain());
   
         // Create axes
         svg.append("g")
@@ -148,6 +159,7 @@ d3.csv('https://raw.githubusercontent.com/fivethirtyeight/data/master/nba-elo/nb
     d3.select("#next").on("click", () => changeScene(1));
     d3.select("#prev").on("click", () => changeScene(-1));
   });
+  
   
   
   
