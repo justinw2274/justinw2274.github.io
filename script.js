@@ -1,5 +1,5 @@
 // Load the dataset
-d3.csv('directory.csv').then(data => {
+d3.csv('/Users/justinward/Documents/directory.csv').then(data => {
 
     // Convert data types
     data.forEach(d => {
