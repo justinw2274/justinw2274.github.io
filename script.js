@@ -19,6 +19,7 @@ d3.csv('all_seasons.csv').then(data => {
     function createScene(data, sceneNumber, annotation) {
         d3.select("#chart-container").html("");
         d3.select("#controls").html("");
+        d3.select("#annotation").text(annotation);  // Set the annotation text
 
         const margin = { top: 40, right: 40, bottom: 60, left: 60 };
         const width = 760 - margin.left - margin.right;
@@ -78,13 +79,6 @@ d3.csv('all_seasons.csv').then(data => {
             .attr("x", -height / 2)
             .text(yLabel);
 
-        svg.append("text")
-            .attr("x", width / 2)
-            .attr("y", height - 20)
-            .attr("text-anchor", "middle")
-            .style("font-style", "italic")
-            .text(annotation);
-
         if (sceneNumber < 3) {
             d3.select("#controls").append("button")
                 .text("Next")
@@ -102,6 +96,7 @@ d3.csv('all_seasons.csv').then(data => {
     function createExplorationScene(data) {
         d3.select("#chart-container").html("");
         d3.select("#controls").html("");
+        d3.select("#annotation").text("");  // Clear the annotation
 
         const margin = { top: 40, right: 40, bottom: 60, left: 60 };
         const width = 760 - margin.left - margin.right;
