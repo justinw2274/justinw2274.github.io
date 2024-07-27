@@ -18,7 +18,7 @@ d3.csv('all_seasons.csv').then(data => {
         d3.select("#controls").html("");
 
         const margin = {top: 40, right: 40, bottom: 60, left: 60};
-        const width = 1400 - margin.left - margin.right; // Increased width
+        const width = 1300 - margin.left - margin.right; // Increased width
         const height = 480 - margin.top - margin.bottom;
 
         const svg = d3.select("#chart-container").append("svg")
@@ -35,7 +35,7 @@ d3.csv('all_seasons.csv').then(data => {
             xLabel = "Age";
             yLabel = "Points per Game";
             annotation = "Players in their mid-20s tend to score the most points";
-            annotationTextPosition = {x: width - 300, y: 50}; // Adjusted position of the annotation text
+            annotationTextPosition = {x: width - 280, y: 50}; // Adjusted position of the annotation text
             annotationLineEnd = {x: 27, y: 32}; // Point where the line should end
         } else if (sceneNumber === 2) {
             x = d3.scaleLinear().domain(d3.extent(data, d => d.player_height)).range([0, width]);
