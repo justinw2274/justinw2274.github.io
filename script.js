@@ -18,7 +18,7 @@ d3.csv('all_seasons.csv').then(data => {
         d3.select("#controls").html("");
 
         const margin = {top: 40, right: 40, bottom: 60, left: 60};
-        const width = 1250 - margin.left - margin.right; // Increased width
+        const width = 1400 - margin.left - margin.right; // Increased width
         const height = 480 - margin.top - margin.bottom;
 
         const svg = d3.select("#chart-container").append("svg")
