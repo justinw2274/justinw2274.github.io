@@ -1,3 +1,4 @@
+// Load the dataset
 d3.csv('all_seasons.csv').then(data => {
     // Process data
     data.forEach(d => {
@@ -7,33 +8,14 @@ d3.csv('all_seasons.csv').then(data => {
         d.pts = +d.pts;
     });
 
-    const annotations = [
-        {
-            text: "Players in their mid-20s tend to score the most points",
-            x: 26, // Approximate x-coordinate of the point of interest
-            y: 30  // Approximate y-coordinate of the point of interest
-        },
-        {
-            text: "Height doesn't strongly correlate with points",
-            x: 210, // Approximate x-coordinate of the point of interest
-            y: 20   // Approximate y-coordinate of the point of interest
-        },
-        {
-            text: "Weight doesn't strongly correlate with points",
-            x: 100, // Approximate x-coordinate of the point of interest
-            y: 20   // Approximate y-coordinate of the point of interest
-        }
-    ];
-
     let currentScene = 1;
-    createScene(data, currentScene, annotations[currentScene - 1]);
+    createScene(data, currentScene);
 
-    function createScene(data, sceneNumber, annotation) {
+    function createScene(data, sceneNumber) {
         d3.select("#chart-container").html("");
         d3.select("#controls").html("");
-        d3.select("#annotation").text(annotation.text);  // Set the annotation text
 
-        const margin = { top: 40, right: 40, bottom: 60, left: 60 };
+        const margin = {top: 40, right: 40, bottom: 60, left: 60};
         const width = 760 - margin.left - margin.right;
         const height = 480 - margin.top - margin.bottom;
 
@@ -43,23 +25,29 @@ d3.csv('all_seasons.csv').then(data => {
             .append("g")
             .attr("transform", `translate(${margin.left},${margin.top})`);
 
-        let x, y, xLabel, yLabel;
+        let x, y, xLabel, yLabel, annotation, annotationPoint;
 
         if (sceneNumber === 1) {
             x = d3.scaleLinear().domain(d3.extent(data, d => d.age)).range([0, width]);
             y = d3.scaleLinear().domain([0, d3.max(data, d => d.pts)]).range([height, 0]);
             xLabel = "Age";
             yLabel = "Points per Game";
+            annotation = "Players in their mid-20s tend to score the most points";
+            annotationPoint = {x: 27, y: 32}; // Adjust these values to point to a specific data point
         } else if (sceneNumber === 2) {
             x = d3.scaleLinear().domain(d3.extent(data, d => d.player_height)).range([0, width]);
             y = d3.scaleLinear().domain([0, d3.max(data, d => d.pts)]).range([height, 0]);
             xLabel = "Height (cm)";
             yLabel = "Points per Game";
+            annotation = "Height doesn't strongly correlate with points";
+            annotationPoint = {x: 200, y: 25}; // Adjust these values to point to a specific data point
         } else if (sceneNumber === 3) {
             x = d3.scaleLinear().domain(d3.extent(data, d => d.player_weight)).range([0, width]);
             y = d3.scaleLinear().domain([0, d3.max(data, d => d.pts)]).range([height, 0]);
             xLabel = "Weight (kg)";
             yLabel = "Points per Game";
+            annotation = "Weight doesn't strongly correlate with points";
+            annotationPoint = {x: 100, y: 25}; // Adjust these values to point to a specific data point
         }
 
         svg.selectAll("circle")
@@ -92,28 +80,26 @@ d3.csv('all_seasons.csv').then(data => {
             .text(yLabel);
 
         svg.append("text")
-            .attr("x", width / 2)
-            .attr("y", -20)
-            .attr("text-anchor", "middle")
+            .attr("x", x(annotationPoint.x) + 10)
+            .attr("y", y(annotationPoint.y) - 10)
+            .attr("text-anchor", "start")
             .style("font-style", "italic")
-            .text(annotation.text);
+            .text(annotation);
 
-        // Add an annotation line
         svg.append("line")
-            .attr("x1", x(annotation.x))
-            .attr("y1", y(annotation.y))
-            .attr("x2", width / 2)
-            .attr("y2", -20)
+            .attr("x1", x(annotationPoint.x))
+            .attr("y1", y(annotationPoint.y))
+            .attr("x2", x(annotationPoint.x) + 50)
+            .attr("y2", y(annotationPoint.y) - 20)
             .attr("stroke", "black")
-            .attr("stroke-width", 1)
-            .attr("stroke-dasharray", "4 2");
+            .attr("stroke-dasharray", "5,5");
 
         if (sceneNumber < 3) {
             d3.select("#controls").append("button")
                 .text("Next")
                 .on("click", () => {
                     currentScene++;
-                    createScene(data, currentScene, annotations[currentScene - 1]);
+                    createScene(data, currentScene);
                 });
         } else if (sceneNumber === 3) {
             d3.select("#controls").append("button")
@@ -125,9 +111,8 @@ d3.csv('all_seasons.csv').then(data => {
     function createExplorationScene(data) {
         d3.select("#chart-container").html("");
         d3.select("#controls").html("");
-        d3.select("#annotation").text("");  // Clear the annotation
 
-        const margin = { top: 40, right: 40, bottom: 60, left: 60 };
+        const margin = {top: 40, right: 40, bottom: 60, left: 60};
         const width = 760 - margin.left - margin.right;
         const height = 480 - margin.top - margin.bottom;
 
@@ -186,7 +171,7 @@ d3.csv('all_seasons.csv').then(data => {
         }
 
         const controls = d3.select("#controls");
-
+        
         controls.append("label").text("X-axis: ");
         controls.append("select").attr("id", "x-axis")
             .selectAll("option")
