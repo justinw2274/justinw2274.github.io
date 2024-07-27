@@ -6,8 +6,6 @@ d3.csv('all_seasons.csv').then(data => {
         d.player_height = +d.player_height;
         d.player_weight = +d.player_weight;
         d.pts = +d.pts;
-        d.reb = +d.reb;
-        d.ast = +d.ast;
     });
 
     let currentScene = 1;
@@ -27,36 +25,33 @@ d3.csv('all_seasons.csv').then(data => {
             .append("g")
             .attr("transform", `translate(${margin.left},${margin.top})`);
 
-        let x, y, xLabel, yLabel, title, annotation;
+        let x, y, xLabel, yLabel, annotation;
 
         if (sceneNumber === 1) {
             x = d3.scaleLinear().domain(d3.extent(data, d => d.age)).range([0, width]);
             y = d3.scaleLinear().domain([0, d3.max(data, d => d.pts)]).range([height, 0]);
             xLabel = "Age";
             yLabel = "Points per Game";
-            title = "Age vs. Points per Game";
             annotation = "Players in their mid-20s tend to score the most points";
         } else if (sceneNumber === 2) {
             x = d3.scaleLinear().domain(d3.extent(data, d => d.player_height)).range([0, width]);
-            y = d3.scaleLinear().domain([0, d3.max(data, d => d.reb)]).range([height, 0]);
+            y = d3.scaleLinear().domain([0, d3.max(data, d => d.pts)]).range([height, 0]);
             xLabel = "Height (cm)";
-            yLabel = "Rebounds per Game";
-            title = "Height vs. Rebounds per Game";
-            annotation = "Taller players tend to get more rebounds";
+            yLabel = "Points per Game";
+            annotation = "Height doesn't strongly correlate with points";
         } else if (sceneNumber === 3) {
             x = d3.scaleLinear().domain(d3.extent(data, d => d.player_weight)).range([0, width]);
-            y = d3.scaleLinear().domain([0, d3.max(data, d => d.ast)]).range([height, 0]);
+            y = d3.scaleLinear().domain([0, d3.max(data, d => d.pts)]).range([height, 0]);
             xLabel = "Weight (kg)";
-            yLabel = "Assists per Game";
-            title = "Weight vs. Assists per Game";
-            annotation = "Player weight doesn't strongly correlate with assists";
+            yLabel = "Points per Game";
+            annotation = "Weight doesn't strongly correlate with points";
         }
 
         svg.selectAll("circle")
             .data(data)
             .enter().append("circle")
             .attr("cx", d => x(d[xLabel === "Age" ? "age" : xLabel === "Height (cm)" ? "player_height" : "player_weight"]))
-            .attr("cy", d => y(d[yLabel === "Points per Game" ? "pts" : yLabel === "Rebounds per Game" ? "reb" : "ast"]))
+            .attr("cy", d => y(d.pts))
             .attr("r", 3)
             .style("fill", "steelblue")
             .style("opacity", 0.5);
@@ -80,14 +75,6 @@ d3.csv('all_seasons.csv').then(data => {
             .attr("y", -margin.left + 20)
             .attr("x", -height / 2)
             .text(yLabel);
-
-        svg.append("text")
-            .attr("x", width / 2)
-            .attr("y", -margin.top / 2)
-            .attr("text-anchor", "middle")
-            .style("font-size", "16px")
-            .style("font-weight", "bold")
-            .text(title);
 
         svg.append("text")
             .attr("x", width / 2)
@@ -147,14 +134,6 @@ d3.csv('all_seasons.csv').then(data => {
             .attr("x", -height / 2)
             .text("Points per Game");
 
-        const title = svg.append("text")
-            .attr("x", width / 2)
-            .attr("y", -margin.top / 2)
-            .attr("text-anchor", "middle")
-            .style("font-size", "16px")
-            .style("font-weight", "bold")
-            .text("Explore NBA Player Statistics");
-
         const circles = svg.selectAll("circle")
             .data(data)
             .enter().append("circle")
@@ -193,7 +172,7 @@ d3.csv('all_seasons.csv').then(data => {
         controls.append("label").text(" Y-axis: ");
         controls.append("select").attr("id", "y-axis")
             .selectAll("option")
-            .data(["pts", "reb", "ast"])
+            .data(["pts"])
             .enter().append("option")
             .text(d => d.replace(/_/g, ' '))
             .attr("value", d => d);
