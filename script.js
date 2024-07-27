@@ -1,11 +1,13 @@
-// Load the data
-d3.csv('https://raw.githubusercontent.com/uiuc-cse/data-fa14/gh-pages/data/iris.csv').then(data => {
-    // Convert numerical values from strings to numbers
+// Load the dataset
+d3.csv('all_seasons.csv').then(data => {
+    // Process data if needed
     data.forEach(d => {
-        d.sepal_length = +d.sepal_length;
-        d.sepal_width = +d.sepal_width;
-        d.petal_length = +d.petal_length;
-        d.petal_width = +d.petal_width;
+        d.age = +d.age;
+        d.player_height = +d.player_height;
+        d.player_weight = +d.player_weight;
+        d.pts = +d.pts;
+        d.reb = +d.reb;
+        d.ast = +d.ast;
     });
 
     // Initial parameters
@@ -20,22 +22,22 @@ d3.csv('https://raw.githubusercontent.com/uiuc-cse/data-fa14/gh-pages/data/iris.
             .attr("width", 800)
             .attr("height", 500);
 
-        // Create scatter plot for Sepal Length vs Sepal Width
-        const x = d3.scaleLinear().domain(d3.extent(data, d => d.sepal_length)).range([50, 750]);
-        const y = d3.scaleLinear().domain(d3.extent(data, d => d.sepal_width)).range([450, 50]);
+        // Create scatter plot for Age vs Points
+        const x = d3.scaleLinear().domain(d3.extent(data, d => d.age)).range([50, 750]);
+        const y = d3.scaleLinear().domain(d3.extent(data, d => d.pts)).range([450, 50]);
 
         svg.selectAll("circle")
             .data(data)
             .enter().append("circle")
-            .attr("cx", d => x(d.sepal_length))
-            .attr("cy", d => y(d.sepal_width))
+            .attr("cx", d => x(d.age))
+            .attr("cy", d => y(d.pts))
             .attr("r", 5)
             .style("fill", "steelblue");
 
         // Add annotations
         const annotations = [
             {
-                note: { label: "Sepal Length vs Sepal Width" },
+                note: { label: "Age vs Points" },
                 x: 100, y: 100,
                 dy: -30, dx: 30
             }
@@ -64,22 +66,22 @@ d3.csv('https://raw.githubusercontent.com/uiuc-cse/data-fa14/gh-pages/data/iris.
             .attr("width", 800)
             .attr("height", 500);
 
-        // Create scatter plot for Petal Length vs Petal Width
-        const x = d3.scaleLinear().domain(d3.extent(data, d => d.petal_length)).range([50, 750]);
-        const y = d3.scaleLinear().domain(d3.extent(data, d => d.petal_width)).range([450, 50]);
+        // Create scatter plot for Height vs Rebounds
+        const x = d3.scaleLinear().domain(d3.extent(data, d => d.player_height)).range([50, 750]);
+        const y = d3.scaleLinear().domain(d3.extent(data, d => d.reb)).range([450, 50]);
 
         svg.selectAll("circle")
             .data(data)
             .enter().append("circle")
-            .attr("cx", d => x(d.petal_length))
-            .attr("cy", d => y(d.petal_width))
+            .attr("cx", d => x(d.player_height))
+            .attr("cy", d => y(d.reb))
             .attr("r", 5)
             .style("fill", "orange");
 
         // Add annotations
         const annotations = [
             {
-                note: { label: "Petal Length vs Petal Width" },
+                note: { label: "Height vs Rebounds" },
                 x: 100, y: 100,
                 dy: -30, dx: 30
             }
@@ -108,22 +110,22 @@ d3.csv('https://raw.githubusercontent.com/uiuc-cse/data-fa14/gh-pages/data/iris.
             .attr("width", 800)
             .attr("height", 500);
 
-        // Create scatter plot for Sepal Length vs Petal Length
-        const x = d3.scaleLinear().domain(d3.extent(data, d => d.sepal_length)).range([50, 750]);
-        const y = d3.scaleLinear().domain(d3.extent(data, d => d.petal_length)).range([450, 50]);
+        // Create scatter plot for Weight vs Assists
+        const x = d3.scaleLinear().domain(d3.extent(data, d => d.player_weight)).range([50, 750]);
+        const y = d3.scaleLinear().domain(d3.extent(data, d => d.ast)).range([450, 50]);
 
         svg.selectAll("circle")
             .data(data)
             .enter().append("circle")
-            .attr("cx", d => x(d.sepal_length))
-            .attr("cy", d => y(d.petal_length))
+            .attr("cx", d => x(d.player_weight))
+            .attr("cy", d => y(d.ast))
             .attr("r", 5)
             .style("fill", "green");
 
         // Add annotations
         const annotations = [
             {
-                note: { label: "Sepal Length vs Petal Length" },
+                note: { label: "Weight vs Assists" },
                 x: 100, y: 100,
                 dy: -30, dx: 30
             }
@@ -160,29 +162,29 @@ d3.csv('https://raw.githubusercontent.com/uiuc-cse/data-fa14/gh-pages/data/iris.
                 .attr("width", 800)
                 .attr("height", 500);
 
-            // Create scatter plot for Sepal Length vs Sepal Width with interactive controls
-            const x = d3.scaleLinear().domain(d3.extent(data, d => d.sepal_length)).range([50, 750]);
-            const y = d3.scaleLinear().domain(d3.extent(data, d => d.sepal_width)).range([450, 50]);
+            // Create scatter plot for Age vs Points with interactive controls
+            const x = d3.scaleLinear().domain(d3.extent(data, d => d.age)).range([50, 750]);
+            const y = d3.scaleLinear().domain(d3.extent(data, d => d.pts)).range([450, 50]);
 
             svg.selectAll("circle")
                 .data(data)
                 .enter().append("circle")
-                .attr("cx", d => x(d.sepal_length))
-                .attr("cy", d => y(d.sepal_width))
+                .attr("cx", d => x(d.age))
+                .attr("cy", d => y(d.pts))
                 .attr("r", 5)
                 .style("fill", "steelblue");
 
             // Add interactive controls
-            d3.select("#controls").append("label").text("Sepal Length: ");
+            d3.select("#controls").append("label").text("Age: ");
             d3.select("#controls").append("input")
                 .attr("type", "range")
-                .attr("min", d3.min(data, d => d.sepal_length))
-                .attr("max", d3.max(data, d => d.sepal_length))
-                .attr("value", d3.mean(data, d => d.sepal_length))
+                .attr("min", d3.min(data, d => d.age))
+                .attr("max", d3.max(data, d => d.age))
+                .attr("value", d3.mean(data, d => d.age))
                 .on("input", function() {
                     const value = +this.value;
                     svg.selectAll("circle")
-                        .style("opacity", d => d.sepal_length > value ? 0.1 : 1);
+                        .style("opacity", d => d.age > value ? 0.1 : 1);
                 });
         }
     }

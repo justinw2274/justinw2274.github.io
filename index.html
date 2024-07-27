@@ -2,16 +2,28 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Iris Data Visualization</title>
+    <title>NBA Player Statistics Visualization</title>
     <script src="https://d3js.org/d3.v6.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-annotation/2.5.1/d3-annotation.min.js"></script>
     <style>
-        /* Add some basic styling */
-        .chart-container { width: 100%; height: 500px; }
-        .annotation { font-size: 12px; }
+        .chart-container { 
+            width: 100%; 
+            height: 500px; 
+            margin-bottom: 20px;
+        }
+        .annotation { 
+            font-size: 12px; 
+        }
+        #controls {
+            margin-top: 20px;
+        }
+        button {
+            margin-right: 10px;
+        }
     </style>
 </head>
 <body>
+    <h1>NBA Player Statistics (1996-97 Season)</h1>
     <div id="chart1" class="chart-container"></div>
     <div id="chart2" class="chart-container"></div>
     <div id="chart3" class="chart-container"></div>
