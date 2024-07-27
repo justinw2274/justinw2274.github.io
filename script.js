@@ -1,162 +1,103 @@
-// Load the dataset
-d3.csv('https://people.sc.fsu.edu/~jburkardt/data/csv/hw_200.csv').then(data => {
+// script.js
 
-    // Convert data types
+// Load data
+d3.csv("/Users/justinward/Documents/directory.csv").then(data => {
+    // Parse data
     data.forEach(d => {
-      d.Height = +d.Height;
-      d.Weight = +d.Weight;
+        d.latitude = +d.latitude;
+        d.longitude = +d.longitude;
     });
-  
-    // Log data to ensure it's being loaded correctly
-    console.log("Loaded Data:", data);
-  
-    // Parameters
-    let currentScene = 0;
-  
-    // Define the scenes
-    const scenes = [
-      { 
-        title: "Scene 1: Height vs Weight",
-        x: "Height", 
-        y: "Weight", 
-        annotation: "This scene shows the relationship between height and weight."
-      },
-      { 
-        title: "Scene 2: Height Distribution",
-        x: "Height", 
-        y: "", 
-        annotation: "This scene shows the distribution of heights.",
-        isHistogram: true
-      },
-      { 
-        title: "Scene 3: Weight Distribution",
-        x: "Weight", 
-        y: "", 
-        annotation: "This scene shows the distribution of weights.",
-        isHistogram: true
-      }
-    ];
-  
-    // Function to update the scene
-    function updateScene() {
-      const scene = scenes[currentScene];
-  
-      // Clear existing content
-      d3.select("#visualization").html("");
-  
-      // Create SVG
-      const svg = d3.select("#visualization").append("svg")
-        .attr("width", 600)
-        .attr("height", 400);
-  
-      if (scene.isHistogram) {
-        // Create histogram
-        const values = data.map(d => d[scene.x]);
-        const xScale = d3.scaleLinear()
-          .domain([d3.min(values), d3.max(values)])
-          .range([40, 560]);
-  
-        const histogram = d3.histogram()
-          .domain(xScale.domain())
-          .thresholds(xScale.ticks(20))(values);
-  
-        const yScale = d3.scaleLinear()
-          .domain([0, d3.max(histogram, d => d.length)])
-          .range([360, 40]);
-  
-        // Create axes
+
+    // Set dimensions and margins
+    const margin = { top: 20, right: 30, bottom: 40, left: 50 },
+          width = 960 - margin.left - margin.right,
+          height = 600 - margin.top - margin.bottom;
+
+    // Append SVG
+    const svg = d3.select("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", `translate(${margin.left},${margin.top})`);
+
+    // Define map projection
+    const projection = d3.geoAlbersUsa()
+        .scale(1200)
+        .translate([width / 2, height / 2]);
+
+    // Define path generator
+    const path = d3.geoPath()
+        .projection(projection);
+
+    // Load and display the US map
+    d3.json("https://d3js.org/us-10m.v1.json").then(us => {
         svg.append("g")
-          .attr("transform", "translate(0,360)")
-          .call(d3.axisBottom(xScale));
-  
-        svg.append("g")
-          .attr("transform", "translate(40,0)")
-          .call(d3.axisLeft(yScale));
-  
-        // Add bars
-        svg.selectAll(".bar")
-          .data(histogram)
-          .enter().append("rect")
-          .attr("class", "bar")
-          .attr("x", d => xScale(d.x0))
-          .attr("y", d => yScale(d.length))
-          .attr("width", d => xScale(d.x1) - xScale(d.x0) - 1)
-          .attr("height", d => 360 - yScale(d.length))
-          .attr("fill", "steelblue");
-  
-      } else {
-        // Create scales for scatter plot
-        const xScale = d3.scaleLinear()
-          .domain([d3.min(data, d => d[scene.x]), d3.max(data, d => d[scene.x])])
-          .range([40, 560]);
-  
-        const yScale = d3.scaleLinear()
-          .domain([d3.min(data, d => d[scene.y]), d3.max(data, d => d[scene.y])])
-          .range([360, 40]);
-  
-        // Create axes
-        svg.append("g")
-          .attr("transform", "translate(0,360)")
-          .call(d3.axisBottom(xScale));
-  
-        svg.append("g")
-          .attr("transform", "translate(40,0)")
-          .call(d3.axisLeft(yScale));
-  
-        // Add points
-        svg.selectAll(".point")
-          .data(data)
-          .enter().append("circle")
-          .attr("class", "point")
-          .attr("cx", d => xScale(d[scene.x]))
-          .attr("cy", d => yScale(d[scene.y]))
-          .attr("r", 3)
-          .attr("fill", "steelblue");
-      }
-  
-      // Check if d3.annotation is available
-      if (d3.annotation) {
-        // Add annotation
-        const annotations = [{
-          note: { label: scene.annotation },
-          x: 100, y: 100,
-          dx: 50, dy: -50
-        }];
-  
+            .selectAll("path")
+            .data(topojson.feature(us, us.objects.states).features)
+            .enter().append("path")
+            .attr("d", path)
+            .attr("fill", "#ccc");
+
+        // Add Starbucks locations
+        svg.selectAll("circle")
+            .data(data)
+            .enter()
+            .append("circle")
+            .attr("cx", d => projection([d.longitude, d.latitude])[0])
+            .attr("cy", d => projection([d.longitude, d.latitude])[1])
+            .attr("r", 3)
+            .attr("fill", "green");
+
+        // Add annotations
+        const annotations = [
+            {
+                note: { label: "Highest Density of Stores", title: "California" },
+                x: projection([-119.4179, 36.7783])[0], y: projection([-119.4179, 36.7783])[1],
+                dy: -30, dx: 30
+            },
+            {
+                note: { label: "Second Highest Density of Stores", title: "New York" },
+                x: projection([-74.0059, 40.7128])[0], y: projection([-74.0059, 40.7128])[1],
+                dy: -30, dx: 30
+            }
+        ];
+
         const makeAnnotations = d3.annotation()
-          .annotations(annotations)
-          .type(d3.annotationLabel)
-          .textWrap(200)
-          .accessors({
-            x: d => d.x,
-            y: d => d.y
-          })
-          .accessorsInverse({
-            x: d => d.x,
-            y: d => d.y
-          });
-  
-        svg.append("g").call(makeAnnotations);
-      } else {
-        svg.append("text")
-          .attr("x", 50)
-          .attr("y", 50)
-          .text(scene.annotation)
-          .attr("class", "annotation");
-      }
-    }
-  
-    // Function to handle scene change
-    function changeScene(step) {
-      currentScene = (currentScene + step + scenes.length) % scenes.length;
-      updateScene();
-    }
-  
-    // Initial scene
-    updateScene();
-  
-    // Add event listeners for navigation
-    d3.select("#next").on("click", () => changeScene(1));
-    d3.select("#prev").on("click", () => changeScene(-1));
-  });
-  
+            .type(d3.annotationLabel)
+            .annotations(annotations);
+
+        svg.append("g")
+            .call(makeAnnotations);
+
+        // Scene transitions
+        let scene = 1;
+
+        const updateScene = () => {
+            if (scene === 1) {
+                svg.selectAll("circle")
+                    .transition()
+                    .duration(1000)
+                    .attr("r", 3)
+                    .attr("fill", "green");
+            } else if (scene === 2) {
+                svg.selectAll("circle")
+                    .transition()
+                    .duration(1000)
+                    .attr("r", d => d.state === "CA" ? 6 : 3)
+                    .attr("fill", d => d.state === "CA" ? "blue" : "green");
+            } else if (scene === 3) {
+                svg.selectAll("circle")
+                    .transition()
+                    .duration(1000)
+                    .attr("r", d => d.state === "NY" ? 6 : 3)
+                    .attr("fill", d => d.state === "NY" ? "red" : "green");
+            }
+        };
+
+        // Trigger transitions
+        d3.select("body").on("click", () => {
+            scene = (scene % 3) + 1;
+            updateScene();
+        });
+    });
+});
