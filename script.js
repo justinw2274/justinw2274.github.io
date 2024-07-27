@@ -6,6 +6,8 @@ d3.csv('all_seasons.csv').then(data => {
         d.player_height = +d.player_height;
         d.player_weight = +d.player_weight;
         d.pts = +d.pts;
+        d.reb = +d.reb;
+        d.ast = +d.ast;
     });
 
     let currentScene = 1;
@@ -186,7 +188,7 @@ d3.csv('all_seasons.csv').then(data => {
         controls.append("label").text(" Y-axis: ");
         controls.append("select").attr("id", "y-axis")
             .selectAll("option")
-            .data(["pts"])
+            .data(["pts", "reb", "ast"])
             .enter().append("option")
             .text(d => d.replace(/_/g, ' '))
             .attr("value", d => d);
