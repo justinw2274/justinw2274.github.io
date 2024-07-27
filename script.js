@@ -25,7 +25,7 @@ d3.csv('all_seasons.csv').then(data => {
             .append("g")
             .attr("transform", `translate(${margin.left},${margin.top})`);
 
-        let x, y, xLabel, yLabel, annotation, annotationPoint;
+        let x, y, xLabel, yLabel, annotation, annotationTextPosition, annotationLineEnd;
 
         if (sceneNumber === 1) {
             x = d3.scaleLinear().domain(d3.extent(data, d => d.age)).range([0, width]);
@@ -33,21 +33,24 @@ d3.csv('all_seasons.csv').then(data => {
             xLabel = "Age";
             yLabel = "Points per Game";
             annotation = "Players in their mid-20s tend to score the most points";
-            annotationPoint = {x: 27, y: 32}; // Adjust these values to point to a specific data point
+            annotationTextPosition = {x: width - 150, y: 50}; // Position of the annotation text
+            annotationLineEnd = {x: 27, y: 32}; // Point where the line should end
         } else if (sceneNumber === 2) {
             x = d3.scaleLinear().domain(d3.extent(data, d => d.player_height)).range([0, width]);
             y = d3.scaleLinear().domain([0, d3.max(data, d => d.pts)]).range([height, 0]);
             xLabel = "Height (cm)";
             yLabel = "Points per Game";
             annotation = "Height doesn't strongly correlate with points";
-            annotationPoint = {x: 200, y: 25}; // Adjust these values to point to a specific data point
+            annotationTextPosition = {x: width - 150, y: 50}; // Adjust as needed
+            annotationLineEnd = {x: 200, y: 25}; // Adjust as needed
         } else if (sceneNumber === 3) {
             x = d3.scaleLinear().domain(d3.extent(data, d => d.player_weight)).range([0, width]);
             y = d3.scaleLinear().domain([0, d3.max(data, d => d.pts)]).range([height, 0]);
             xLabel = "Weight (kg)";
             yLabel = "Points per Game";
             annotation = "Weight doesn't strongly correlate with points";
-            annotationPoint = {x: 100, y: 25}; // Adjust these values to point to a specific data point
+            annotationTextPosition = {x: width - 150, y: 50}; // Adjust as needed
+            annotationLineEnd = {x: 100, y: 25}; // Adjust as needed
         }
 
         svg.selectAll("circle")
@@ -80,17 +83,17 @@ d3.csv('all_seasons.csv').then(data => {
             .text(yLabel);
 
         svg.append("text")
-            .attr("x", x(annotationPoint.x) + 10)
-            .attr("y", y(annotationPoint.y) - 10)
+            .attr("x", annotationTextPosition.x)
+            .attr("y", annotationTextPosition.y)
             .attr("text-anchor", "start")
             .style("font-style", "italic")
             .text(annotation);
 
         svg.append("line")
-            .attr("x1", x(annotationPoint.x))
-            .attr("y1", y(annotationPoint.y))
-            .attr("x2", x(annotationPoint.x) + 50)
-            .attr("y2", y(annotationPoint.y) - 20)
+            .attr("x1", x(annotationLineEnd.x))
+            .attr("y1", y(annotationLineEnd.y))
+            .attr("x2", annotationTextPosition.x - 10)
+            .attr("y2", annotationTextPosition.y - 5)
             .attr("stroke", "black")
             .attr("stroke-dasharray", "5,5");
 
