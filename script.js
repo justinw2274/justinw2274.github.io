@@ -1,6 +1,4 @@
-// Load the dataset
 d3.csv('all_seasons.csv').then(data => {
-    // Process data
     data.forEach(d => {
         d.age = +d.age;
         d.player_height = +d.player_height;
@@ -18,7 +16,7 @@ d3.csv('all_seasons.csv').then(data => {
         d3.select("#controls").html("");
 
         const margin = {top: 40, right: 40, bottom: 60, left: 60};
-        const width = 1300 - margin.left - margin.right; // Increased width
+        const width = 1300 - margin.left - margin.right;
         const height = 480 - margin.top - margin.bottom;
 
         const svg = d3.select("#chart-container").append("svg")
@@ -35,24 +33,24 @@ d3.csv('all_seasons.csv').then(data => {
             xLabel = "Age";
             yLabel = "Points per Game";
             annotation = "Players in their mid-20s tend to score the most points";
-            annotationTextPosition = {x: width - 310, y: 50}; // Adjusted position of the annotation text
-            annotationLineEnd = {x: 27, y: 32}; // Point where the line should end
+            annotationTextPosition = {x: width - 310, y: 50}; 
+            annotationLineEnd = {x: 27, y: 32}; 
         } else if (sceneNumber === 2) {
             x = d3.scaleLinear().domain(d3.extent(data, d => d.player_height)).range([0, width]);
             y = d3.scaleLinear().domain([0, d3.max(data, d => d.pts)]).range([height, 0]);
             xLabel = "Height (cm)";
             yLabel = "Points per Game";
             annotation = "Height doesn't strongly correlate with points";
-            annotationTextPosition = {x: width - 300, y: 50}; // Adjust as needed
-            annotationLineEnd = {x: 200, y: 25}; // Adjust as needed
+            annotationTextPosition = {x: width - 300, y: 50}; 
+            annotationLineEnd = {x: 200, y: 25}; 
         } else if (sceneNumber === 3) {
             x = d3.scaleLinear().domain(d3.extent(data, d => d.player_weight)).range([0, width]);
             y = d3.scaleLinear().domain([0, d3.max(data, d => d.pts)]).range([height, 0]);
             xLabel = "Weight (kg)";
             yLabel = "Points per Game";
             annotation = "Weight doesn't strongly correlate with points";
-            annotationTextPosition = {x: width - 300, y: 50}; // Adjust as needed
-            annotationLineEnd = {x: 100, y: 25}; // Adjust as needed
+            annotationTextPosition = {x: width - 300, y: 50}; 
+            annotationLineEnd = {x: 100, y: 25}; 
         }
 
         svg.selectAll("circle")
@@ -84,7 +82,6 @@ d3.csv('all_seasons.csv').then(data => {
             .attr("x", -height / 2)
             .text(yLabel);
 
-        // Add annotation text
         svg.append("text")
             .attr("x", annotationTextPosition.x)
             .attr("y", annotationTextPosition.y)
@@ -92,7 +89,6 @@ d3.csv('all_seasons.csv').then(data => {
             .style("font-style", "italic")
             .text(annotation);
 
-        // Add annotation line
         svg.append("line")
             .attr("x1", x(annotationLineEnd.x))
             .attr("y1", y(annotationLineEnd.y))
@@ -120,7 +116,7 @@ d3.csv('all_seasons.csv').then(data => {
         d3.select("#controls").html("");
 
         const margin = {top: 40, right: 40, bottom: 60, left: 60};
-        const width = 1250 - margin.left - margin.right; // Increased width
+        const width = 1250 - margin.left - margin.right;
         const height = 480 - margin.top - margin.bottom;
 
         const svg = d3.select("#chart-container").append("svg")
