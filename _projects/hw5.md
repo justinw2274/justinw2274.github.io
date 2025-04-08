@@ -31,7 +31,7 @@ Here, I provide a geospatial scatter plot wherein I plot the reported UFO sighti
 <iframe src="/assets/bar_chart.html" width="100%" height="650" style="border:none;"></iframe>
 
 <p style="font-size:16px;">
-The second visualization is a bar chart that shows the frequency distribution of UFO shapes reported in the dataset. I aggregated the data by grouping on the 'shape' column and counting the number of occurrences per shape. The x-axis encodes the categorical variable (UFO shape) while the y-axis displays the number of sightings (a quantitative variable). To enhance interactivity, I added a hover effect that highlights an individual bar in steelblue while dimming the others, enabling users to focus on and compare specific categories more effectively. This data transformation step ensures that the visualization accurately presents the most and least frequently reported UFO shapes.
+The second visualization is a bar chart that shows the frequency distribution of UFO shapes reported in the dataset. I aggregated the data by grouping on the 'shape' column and counting the number of occurrences per shape. The x-axis encodes the categorical variable (UFO shape) while the y-axis displays the number of sightings (a quantitative variable). I chose to keep the base color of each bar clear in order to promote the interactivity feature of the chart. To enhance interactivity, I added a hover effect that highlights an individual bar in steelblue while dimming the others, enabling users to focus on and compare specific categories more effectively. This data transformation step ensures that the visualization accurately presents the most and least frequently reported UFO shapes.
 </p>
 ---
 
