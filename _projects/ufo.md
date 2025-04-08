@@ -35,6 +35,13 @@ The second plot discloses the categorical organization of the UFO data by means 
 </p>
 ---
 
+### Interactivity
+
+<p style="font-size:18px;">
+As stated before, the interactivity in these plots is within the tool tip pop ups on both plots as well as the hover interactivity feature that highlights a specific bar in the bar chart and makes that bar black in order to differentiate between the rest of the bars.
+</p>
+---
+
 <div class = "left"> {% include elements/button.html link = "https://github.com/UIUC-iSchool-DataViz/is445_data/raw/main/ufo-scrubbed-geocoded-time-standardized-00.csv" text = "The Data" %} </div> 
 
-<div class = "right"> {% include elements/button.html link = "https://github.com/justinw2274/justinw2274.github.io/blob/main/Workbook.ipynb" text = "The Analysis" %} </div> 
+<div class = "right"> {% include elements/button.html link = "https://github.com/justinw2274/justinw2274.github.io/blob/main/python_notebooks/Workbook.ipynb" text = "The Analysis" %} </div> 
