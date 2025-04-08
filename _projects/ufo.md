@@ -35,7 +35,6 @@ The second plot discloses the categorical organization of the UFO data by means 
 </p>
 ---
 
-### Links
+<div class = "left"> {% include elements/button.html link = "https://github.com/UIUC-iSchool-DataViz/is445_data/raw/main/ufo-scrubbed-geocoded-time-standardized-00.csv" text = "The Data" %} </div> 
 
-- [Data](https://github.com/UIUC-iSchool-DataViz/is445_data/raw/main/ufo-scrubbed-geocoded-time-standardized-00.csv)  
-- [Python Notebook](https://github.com/justinw2274/justinw2274.github.io/blob/main/Workbook.ipynb)
+<div class = "right"> {% include elements/button.html link = "https://github.com/justinw2274/justinw2274.github.io/blob/main/Workbook.ipynb" text = "The Analysis" %} </div> 
