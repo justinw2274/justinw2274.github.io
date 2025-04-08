@@ -1,14 +1,14 @@
 ---
 name: UFO Sighting Visualizations
 tools: [Python, HTML, altair, vega-lite]
-image: assets/pngs/ufo_thumb.png
+image: assets/scatter_plot.html
 description: An exploration of UFO sightings using Python and Altair, featuring a geospatial scatter plot and a bar chart of UFO shapes.
 custom_js:
   - vega.min
   - vega-lite.min
   - vega-embed.min
   - justcharts
-permalink: /projects/ufo
+permalink: /projects/
 ---
 
 ## UFO Sighting Visualizations
