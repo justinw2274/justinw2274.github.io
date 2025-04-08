@@ -8,7 +8,6 @@ custom_js:
   - vega-lite.min
   - vega-embed.min
   - justcharts
-permalink: /projects/
 ---
 
 ## UFO Sighting Visualizations
