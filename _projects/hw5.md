@@ -21,14 +21,18 @@ This page presents two visualizations created using Python and Altair based on a
 
 <iframe src="/assets/scatter_plot.html" width="100%" height="600" style="border:none;"></iframe>
 
-Here, I provide a geospatial scatter plot wherein I plot the reported UFO sightings against their latitude and longitude coordinates. The map provides a spatial indication of where the sightings are occurring, and therefore it is easy for one to identify clusters and trends in different geographical locations. For the design, I employed quantitative encodings for both axes (longitude for x-axis and latitude for y-axis) to place each sighting on the map accordingly. I quantified the datetime variable as a temporal field with a sequential color scheme (inferno) that encodes sightings over time by mapping darker colors to more recent incidents and lighter colors to older incidents. On the analysis end, I broke up the raw date strings into actual datetime objects and excluded any records missing coordinate or date information for the sake of data integrity. While the story itself depends on tooltips to provide interactivity through the display of the precise date and coordinate information on hovering over any point, the latter function takes learning to another level by providing viewers with more context without taking up visual space.
+<p style="font-size:16px;">
+Here, I provide a geospatial scatter plot wherein I plot the reported UFO sightings against their latitude and longitude coordinates. The map provides a spatial indication of where sightings occur, making it easy to identify clusters and geographical trends. I encoded the datetime variable as a temporal field using the inferno sequential color scheme, mapping darker hues to more recent sightings and lighter hues to older ones. In my analysis, I parsed raw date strings into datetime objects and filtered out entries lacking valid coordinate or date information. Interactive tooltips display additional details (date and coordinates) on hover, adding valuable context beyond basic panning and zooming.
+</p>
 ---
 
 ### Viz 2: Bar Chart of UFO Shapes
 
 <iframe src="/assets/bar_chart.html" width="100%" height="650" style="border:none;"></iframe>
 
-The second plot discloses the categorical organization of the UFO data by means of a bar graph that is used to portray the frequency of shapes in the UFO sightings. It shifts the focus from spatial-temporal patterns to an investigation of the heterogeneity found in shapes. While creating this chart, I grouped the data based on counted frequency of each and every shape, i.e., raw data converted into tabulated form with most and least frequent shapes. The category variable (category of UFO) is plotted on the x-axis and quantitative value for UFO sighting on the y-axis such that comparison is simple across categories. For better readability and user interaction, I used interactive hover effect: when you hover over one single bar, it becomes highlighted in steelblue and other bars light grayed. This interactivity allows users to highlight one single category instantly, and better readability and comparison of values of different shapes are possible. Data transformation step included splitting the data set by 'shape' column and resetting index so that it would be available for visualization to aggregate properly and as accurately as possible.
+<p style="font-size:16px;">
+The second visualization is a bar chart that shows the frequency distribution of UFO shapes reported in the dataset. I aggregated the data by grouping on the 'shape' column and counting the number of occurrences per shape. The x-axis encodes the categorical variable (UFO shape) while the y-axis displays the number of sightings (a quantitative variable). To enhance interactivity, I added a hover effect that highlights an individual bar in steelblue while dimming the others, enabling users to focus on and compare specific categories more effectively. This data transformation step ensures that the visualization accurately presents the most and least frequently reported UFO shapes.
+</p>
 ---
 
 ### Links
