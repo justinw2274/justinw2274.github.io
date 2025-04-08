@@ -1,0 +1,96 @@
+---
+layout: page
+permalink: /projects/ufo/
+title: IS 445 Homework 5 Jekyll Webpage - UFO Sighting Visualizations
+tools: [Python, Altair, Vega-Lite, HTML]
+image: /assets/pngs/ufo_thumb.png
+description: Interactive visualizations of UFO sightings using Python, Altair, & Vega-Lite!
+---
+
+<!DOCTYPE html>
+<!--
+  portfolYOU Jekyll theme by Youssef Raafat
+  Free for personal & commercial use under the MIT license
+  https://github.com/YoussefRaafatNasry/portfolYOU
+  IS 445 Homework 5 - UFO Sighting Visualizations
+-->
+
+<html lang="en" class="h-100">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IS 445 Homework 5 Jekyll Webpage - UFO Sighting Visualizations</title>
+    <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+    <style>
+      body { 
+          font-family: Arial, sans-serif; 
+          margin: 20px; 
+          min-height: 100vh; 
+          display: flex; 
+          flex-direction: column; 
+      }
+      h1 { font-size: 2em; }
+      h2 { font-size: 1.5em; }
+      .content { flex: 1; }
+      .button-container {
+          display: flex;
+          justify-content: space-between;
+          margin-top: 20px;
+          padding-bottom: 20px;
+      }
+      .button { 
+          display: inline-block; 
+          padding: 10px 20px; 
+          background-color: #007bff; 
+          color: white; 
+          text-decoration: none; 
+          border-radius: 5px; 
+      }
+      .button:hover { background-color: #0056b3; }
+    </style>
+</head>
+
+<body>
+    <h1>IS 445 Homework 5 Jekyll Webpage - UFO Sighting Visualizations</h1>
+    <p>This project presents two interactive visualizations of UFO sightings using Python, Altair, and Vega-Lite. The first visualization is a scatter plot that maps the geographic distribution of UFO sightings, while the second visualization is a bar chart that shows the frequency distribution of reported UFO shapes.</p>
+
+    <h2>Visualization 1: Scatter Plot of UFO Sightings</h2>
+    <div id="vis1"></div>
+    <script type="text/javascript">
+        vegaEmbed("#vis1", "/assets/plots/scatter_plot.html");
+    </script>
+    <p>This scatter plot visualizes UFO sightings by plotting their latitude and longitude coordinates on a map. The datetime variable is encoded as a temporal field using the inferno sequential color scheme—darker hues indicate more recent sightings, while lighter hues denote older events. Interactive tooltips display details such as the sighting date and coordinates, enhancing the spatial exploration of the dataset. In the Python notebook, I transformed raw date strings into datetime objects and filtered out records with missing or invalid data to maintain data quality.</p>
+
+    <h2>Visualization 2: Bar Chart of UFO Shapes</h2>
+    <div id="vis2"></div>
+    <script type="text/javascript">
+        vegaEmbed("#vis2", "/assets/plots/bar_chart.html");
+    </script>
+    <p>This bar chart represents the frequency distribution of UFO shapes reported in the dataset. The x-axis encodes the UFO shape (a nominal variable) and the y-axis quantifies the number of sightings (a quantitative variable). I implemented an interactive hover effect that highlights the selected bar in steelblue while dimming the others, thereby assisting users in focusing on specific categories and comparing values effectively. Data transformations in Python included aggregating and grouping the UFO sighting data by shape.</p>
+
+    <h3>Interactivity</h3>
+    <p>For the bar chart, the interactive hover effect allows users to instantly highlight a specific UFO shape, which improves readability and comparisons between categories. This dynamic feedback elevates the interactivity beyond standard panning/zooming, making the visualization more engaging.</p>
+
+    <h2>Search The Data & Methods</h2>
+    <p>Below are the links to the dataset and the Python notebook used to generate these visualizations. (Note: The Python notebook is rendered on GitHub.)</p>
+    <div class="button-container">
+      <a href="https://github.com/UIUC-iSchool-DataViz/is445_data/raw/main/ufo-scrubbed-geocoded-time-standardized-00.csv" class="button">The Data</a>
+      <a href="https://github.com/justinw2274/justinw2274.github.io/blob/main/Workbook.ipynb" class="button">The Code</a>
+    </div>
+
+    <!-- GitHub Buttons and additional JS libraries -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.js"></script>
+    <script> new WOW().init(); </script>
+    <script>
+      $(function () {
+          $('[data-toggle="tooltip"]').tooltip()
+      });
+    </script>
+</body>
+</html>
