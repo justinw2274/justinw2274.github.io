@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    #vis.vega-embed {
+      width: 100%;
+      display: flex;
+    }
+
+    #vis.vega-embed details,
+    #vis.vega-embed details summary {
+      position: relative;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-lite@5.20.1"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 300, "continuousHeight": 300}}, "data": {"name": "data-c7c601f3f4b3c307784b11be2b26f4e3"}, "mark": {"type": "line", "point": true}, "encoding": {"tooltip": [{"field": "Month", "type": "nominal"}, {"field": "Count", "type": "quantitative"}], "x": {"field": "Month", "title": "Month", "type": "temporal"}, "y": {"field": "Count", "title": "Number of Thefts", "type": "quantitative"}}, "height": 400, "params": [{"name": "param_1", "select": {"type": "interval", "encodings": ["x", "y"]}, "bind": "scales"}], "title": "Monthly Theft Reports in Chicago", "width": 700, "$schema": "https://vega.github.io/schema/vega-lite/v5.20.1.json", "datasets": {"data-c7c601f3f4b3c307784b11be2b26f4e3": [{"Month": "2024-04", "Count": 81}, {"Month": "2024-05", "Count": 147}, {"Month": "2024-06", "Count": 163}, {"Month": "2024-07", "Count": 152}, {"Month": "2024-08", "Count": 140}, {"Month": "2024-09", "Count": 166}, {"Month": "2024-10", "Count": 153}, {"Month": "2024-11", "Count": 112}, {"Month": "2024-12", "Count": 53}, {"Month": "2025-01", "Count": 8}, {"Month": "2025-02", "Count": 18}, {"Month": "2025-03", "Count": 92}, {"Month": "2025-04", "Count": 57}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>
