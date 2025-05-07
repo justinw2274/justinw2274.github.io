@@ -2,7 +2,7 @@
 layout: default
 title: "Crime in Chicago: A Year in Review"
 author: "Srikar Manikonda, Justin Ward, Vanisha Nagali, Rishabh Shah"
-permalink: /projects/
+permalink: /projects/crime-in-chicago/
 ---
 
 # Crime in Chicago: A Year in Review
